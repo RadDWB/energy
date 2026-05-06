@@ -3,23 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚡ Power-Helden v3.3 – Dein Körper als Energie-Superheld!</title>
+  <title>⚡ Power-Helden v3.4 – Dein Körper als Energie-Superheld!</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Comic+Neue:wght@700&display=swap');
     body { font-family: 'Fredoka', system_ui, sans-serif; }
     .comic-font { font-family: 'Comic Neue', 'Fredoka', cursive; }
-    
-    .hero-card {
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1);
-    }
-    .hero-card:hover { transform: translateY(-6px) scale(1.02); }
-    .hero-card.active { box-shadow: 0 0 0 4px #ffe600; transform: scale(1.03); }
-    
     canvas { border-radius: 20px; box-shadow: 0 20px 40px -10px rgb(0 0 0 / 0.2); border: 6px solid #fff; }
     .progress-bar { height: 10px; background: #e2e8f0; border-radius: 9999px; overflow: hidden; }
     .progress-fill { height: 100%; transition: width 0.12s linear; }
+    .lactate-mountain { transition: height 0.3s ease-out; }
   </style>
 </head>
 <body class="bg-gradient-to-br from-emerald-100 via-cyan-100 to-yellow-100 min-h-screen">
@@ -30,7 +23,7 @@
         <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg"><span class="text-4xl">⚡</span></div>
         <div>
           <h1 class="text-4xl font-black tracking-tighter comic-font">POWER-HELDEN</h1>
-          <p class="text-sm -mt-1 opacity-90">v3.3 • Dein Körper als Superheld!</p>
+          <p class="text-sm -mt-1 opacity-90">v3.4 • Dein Körper als Superheld!</p>
         </div>
       </div>
       <div class="text-right"><div class="inline-flex items-center bg-white/20 px-4 py-1 rounded-2xl text-xs font-semibold">Sportunterricht 5.–8. Klasse</div></div>
@@ -78,6 +71,7 @@
           <button onclick="startDemo(1)" class="px-6 py-3.5 bg-red-500 hover:bg-red-600 text-white font-black text-base rounded-3xl flex items-center gap-2 shadow active:scale-[0.985]"><span class="text-2xl">🏃</span> MITTLERES RENNEN</button>
           <button onclick="startDemo(2)" class="px-6 py-3.5 bg-teal-500 hover:bg-teal-600 text-white font-black text-base rounded-3xl flex items-center gap-2 shadow active:scale-[0.985]"><span class="text-2xl">🌳</span> LANGER ABENTEUER-LAUF</button>
           <button onclick="startBadPacingDemo()" class="px-6 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black text-base rounded-3xl flex items-center gap-2 shadow active:scale-[0.985]"><span class="text-2xl">⚠️</span> ZU SCHNELL LOS! (800m)</button>
+          <a href="#laktat-beispiel" class="px-5 py-3.5 bg-purple-500 hover:bg-purple-600 text-white font-bold text-sm rounded-3xl flex items-center gap-2 shadow active:scale-[0.985]">📉 Zum Laktat-Beispiel ↓</a>
           <button onclick="pauseDemo()" class="px-4 py-3.5 bg-gray-200 hover:bg-gray-300 rounded-3xl font-bold text-sm">⏸️</button>
           <button onclick="resetDemo()" class="px-4 py-3.5 bg-gray-800 text-white hover:bg-black rounded-3xl font-bold text-sm">🔄</button>
         </div>
@@ -89,9 +83,78 @@
       <div id="live-info" class="text-lg font-medium min-h-[42px]">Klicke auf einen Button und beobachte die Übernahme!</div>
     </div>
     
+    <!-- NEUER ABSCHNITT: LAKTAT-BEISPIEL -->
+    <div id="laktat-beispiel" class="mt-10 bg-white rounded-3xl p-8 shadow-2xl border-4 border-red-300">
+      <div class="text-center mb-8">
+        <div class="text-6xl mb-3">⚠️</div>
+        <h2 class="text-4xl font-black text-red-600">Der klassische Fehler: Zu schnell loslaufen!</h2>
+        <p class="text-xl text-gray-600 mt-2">Was passiert bei 800m (oder länger), wenn du von Anfang an sprintest?</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- RICHTIG -->
+        <div class="bg-green-50 border-4 border-green-400 rounded-3xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="text-5xl">✅</div>
+            <div>
+              <div class="font-black text-2xl text-green-700">RICHTIG: Gleichmäßig starten</div>
+              <div class="text-sm text-green-600">Du läufst von Anfang an mit guter, aber kontrollierter Geschwindigkeit.</div>
+            </div>
+          </div>
+          
+          <div class="flex items-end gap-4 mt-6">
+            <div class="flex-1">
+              <div class="text-sm font-bold text-green-700 mb-1">Laktat-Wert</div>
+              <div class="progress-bar h-8 bg-green-200 rounded-2xl"><div class="progress-fill bg-green-500" style="width: 35%"></div></div>
+              <div class="text-xs text-green-600 mt-1">Bleibt niedrig → Du kannst bis zum Ende durchhalten!</div>
+            </div>
+            <div class="text-6xl">🏃‍♂️</div>
+          </div>
+          
+          <div class="mt-6 text-sm text-green-700 font-medium">Ergebnis: Du läufst gleichmäßig und kannst am Ende sogar noch sprinten!</div>
+        </div>
+        
+        <!-- FALSCH -->
+        <div class="bg-red-50 border-4 border-red-400 rounded-3xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="text-5xl">❌</div>
+            <div>
+              <div class="font-black text-2xl text-red-700">FALSCH: Zu schnell los!</div>
+              <div class="text-sm text-red-600">Du sprintest die ersten 200–300m wie ein Weltmeister.</div>
+            </div>
+          </div>
+          
+          <div class="flex items-end gap-4 mt-6">
+            <div class="flex-1">
+              <div class="text-sm font-bold text-red-700 mb-1">Laktat-Wert (steigt extrem!)</div>
+              <div class="progress-bar h-8 bg-red-200 rounded-2xl relative">
+                <div class="progress-fill bg-red-500" style="width: 95%"></div>
+                <div class="absolute -top-8 right-0 text-4xl">🏔️</div>
+              </div>
+              <div class="text-xs text-red-600 mt-1">Laktat-Berg wird immer höher → Du kannst ihn nicht mehr überwinden!</div>
+            </div>
+            <div class="text-6xl">😵‍💫</div>
+          </div>
+          
+          <div class="mt-6 text-sm text-red-700 font-medium">Ergebnis: Nach 500–600m bricht dein Lauf komplett ein. Die Beine brennen, du wirst langsam – und alle überholen dich.</div>
+        </div>
+      </div>
+      
+      <div class="mt-8 bg-red-100 border-l-8 border-red-500 p-5 rounded-2xl">
+        <div class="font-bold text-red-700 text-lg">💥 Was passiert genau im Körper?</div>
+        <div class="text-red-900 mt-2 leading-relaxed">
+          Wenn du zu schnell losläufst, verbraucht dein Körper extrem viel Energie ohne genug Sauerstoff. Dadurch entsteht sehr schnell viel <strong>Milchsäure (Laktat)</strong>. 
+          Dieser „Laktat-Berg“ wird immer höher. Irgendwann kannst du ihn nicht mehr überwinden – dein Lauf bricht komplett ein. 
+          <strong>Deshalb ist es besser, gleichmäßig zu starten und erst später richtig Gas zu geben!</strong>
+        </div>
+      </div>
+      
+    </div>
+    
   </div>
   
-  <footer class="text-center py-4 text-xs text-gray-500">© 2026 Straight Edge Media • Power-Helden v3.3</footer>
+  <footer class="text-center py-4 text-xs text-gray-500">© 2026 Straight Edge Media • Power-Helden v3.4</footer>
 
   <div id="explanation-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[300] p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-7 relative">
@@ -195,7 +258,11 @@
     }
     
     function pauseDemo() { paused = !paused; if (!paused && running) animate(); }
-    function resetDemo() { if (animationFrame) cancelAnimationFrame(animationFrame); running = false; paused = false; badPacingMode = false; time = 0; document.getElementById('bolt-perc').textContent = '100'; document.getElementById('saure-perc').textContent = '0'; document.getElementById('aero-perc').textContent = '0'; document.getElementById('bolt-bar').style.width = '100%'; document.getElementById('saure-bar').style.width = '0%'; document.getElementById('aero-bar').style.width = '0%'; document.getElementById('live-info').textContent = 'Klicke auf einen Button und beobachte die Übernahme!'; document.getElementById('timer').textContent = '0.0s'; document.getElementById('mode-label').textContent = 'BEREIT'; for (let i = 0; i < 3; i++) document.getElementById('hero-' + i).classList.remove('active'); draw(); }
+    function resetDemo() {
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+      running = false; paused = false; badPacingMode = false; time = 0;
+      document.getElementById('bolt-perc').textContent = '100'; document.getElementById('saure-perc').textContent = '0'; document.getElementById('aero-perc').textContent = '0'; document.getElementById('bolt-bar').style.width = '100%'; document.getElementById('saure-bar').style.width = '0%'; document.getElementById('aero-bar').style.width = '0%'; document.getElementById('live-info').textContent = 'Klicke auf einen Button und beobachte die Übernahme!'; document.getElementById('timer').textContent = '0.0s'; document.getElementById('mode-label').textContent = 'BEREIT'; for (let i = 0; i < 3; i++) document.getElementById('hero-' + i).classList.remove('active'); draw();
+    }
     
     function adjustSpeed(delta) { speedMultiplier = Math.max(0.3, Math.min(2.2, speedMultiplier + delta)); document.getElementById('speed-value').textContent = speedMultiplier.toFixed(1) + '×'; }
     
