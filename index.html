@@ -3,307 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚡ Power-Helden v2.1 – Dein Körper als Energie-Superheld! | Sportunterricht</title>
+  <title>⚡ Power-Helden v3.0 – Dein Körper als Energie-Superheld!</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Comic+Neue:wght@700&display=swap');
-    
     body { font-family: 'Fredoka', system_ui, sans-serif; }
     .comic-font { font-family: 'Comic Neue', 'Fredoka', cursive; }
     
     .hero-card {
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 15px 35px -10px rgb(0 0 0 / 0.15);
     }
-    .hero-card:hover { transform: translateY(-8px) scale(1.02); }
+    .hero-card:hover { transform: translateY(-6px) scale(1.03); }
     .hero-card.active { 
-      transform: scale(1.05); 
-      box-shadow: 0 0 0 4px #ffe600, 0 20px 25px -5px rgb(0 0 0 / 0.1);
+      box-shadow: 0 0 0 5px #ffe600, 0 25px 50px -12px rgb(0 0 0 / 0.25);
+      transform: scale(1.04);
     }
     
     canvas {
-      border-radius: 20px;
-      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-      border: 6px solid #fff;
+      border-radius: 24px;
+      box-shadow: 0 30px 70px -15px rgb(0 0 0 / 0.3);
+      border: 8px solid #fff;
     }
     
-    .section-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #222;
-      text-shadow: 2px 2px 0 #fff;
+    .progress-bar {
+      height: 14px;
+      background: linear-gradient(90deg, #fff, #e2e8f0);
+      border-radius: 9999px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.1);
     }
     
-    .overlay {
-      animation: fadeInScale 0.2s ease-out forwards;
-    }
-    
-    @keyframes fadeInScale {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+    .progress-fill {
+      height: 100%;
+      transition: width 0.15s linear;
+      box-shadow: 0 0 10px rgba(255,255,255,0.6);
     }
   </style>
 </head>
-<body class="bg-gradient-to-br from-emerald-100 via-cyan-100 to-yellow-100 min-h-screen">
+<body class="bg-gradient-to-br from-sky-100 via-emerald-100 to-yellow-100 min-h-screen">
   
-  <!-- HEADER -->
-  <header class="bg-gradient-to-r from-red-500 via-orange-500 to-yellow-400 text-white py-6 shadow-2xl">
+  <header class="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white py-5 shadow-2xl">
     <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
       <div class="flex items-center gap-x-4">
-        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+        <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg">
           <span class="text-5xl">⚡</span>
         </div>
         <div>
           <h1 class="text-5xl font-black tracking-tighter comic-font">POWER-HELDEN</h1>
-          <p class="text-xl -mt-1 opacity-90">Dein Körper als Superheld! <span class="text-sm align-super font-mono">v2.1</span></p>
+          <p class="text-lg -mt-1 opacity-90">v3.0 • Dein Körper als Superheld!</p>
         </div>
       </div>
-      <div class="text-right">
-        <div class="inline-flex items-center bg-white/20 backdrop-blur-md px-5 py-2 rounded-3xl text-sm font-semibold">
-          <span class="mr-2">🏫</span> 
-          <span>Sportunterricht 5.–8. Klasse</span>
-        </div>
+      <div class="text-right text-sm">
+        <div class="font-semibold">Sportunterricht 5.–8. Klasse</div>
+        <div class="text-xs opacity-75">Didaktik • Interaktiv • Kindgerecht</div>
       </div>
     </div>
   </header>
 
   <div class="max-w-7xl mx-auto px-6 py-8">
     
-    <!-- LERNZIELE -->
-    <div class="bg-white rounded-3xl p-6 mb-8 shadow-xl border-4 border-yellow-300">
-      <div class="flex items-start gap-4">
-        <div class="text-4xl">🎯</div>
-        <div class="flex-1">
-          <h2 class="section-title mb-2">Was lernst du heute?</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-            <div class="flex items-center gap-2 bg-yellow-50 p-3 rounded-2xl">
-              <span class="text-xl">1️⃣</span>
-              <span>Warum du beim Sprint schnell müde wirst</span>
-            </div>
-            <div class="flex items-center gap-2 bg-yellow-50 p-3 rounded-2xl">
-              <span class="text-xl">2️⃣</span>
-              <span>Warum du beim Laufen lange durchhältst</span>
-            </div>
-            <div class="flex items-center gap-2 bg-yellow-50 p-3 rounded-2xl">
-              <span class="text-xl">3️⃣</span>
-              <span>Welche 3 Superhelden in deinem Körper stecken</span>
-            </div>
-          </div>
-        </div>
+    <div class="bg-white rounded-3xl p-5 mb-8 shadow-xl border-4 border-yellow-300 flex items-center gap-4">
+      <div class="text-5xl">🎯</div>
+      <div>
+        <div class="font-bold text-xl">Heute lernst du:</div>
+        <div class="text-sm text-gray-600">Warum du beim Sprint schnell müde wirst • Warum du lange laufen kannst • Welche 3 Helden in dir stecken</div>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
       
-      <!-- CANVAS -->
-      <div class="lg:col-span-7 bg-white rounded-3xl p-5 shadow-xl border-4 border-emerald-300">
-        <div class="flex justify-between items-center mb-4 px-2">
+      <div class="xl:col-span-7 bg-white rounded-3xl p-6 shadow-2xl border-4 border-emerald-300">
+        <div class="flex items-center justify-between mb-4">
           <div>
-            <h3 class="font-bold text-2xl text-emerald-700 flex items-center gap-2">🏃 Dein Läufer</h3>
-            <p class="text-sm text-gray-500">Schau genau hin – der Läufer zeigt dir live, was gerade passiert!</p>
+            <div class="flex items-center gap-3">
+              <div class="text-3xl">🏃</div>
+              <div>
+                <div class="font-black text-2xl text-emerald-700">Dein Läufer</div>
+                <div class="text-xs text-gray-500">Schau genau hin – der Läufer zeigt dir live, was gerade passiert!</div>
+              </div>
+            </div>
           </div>
-          <div class="flex items-center gap-2 bg-gray-100 px-4 py-1.5 rounded-2xl text-sm font-mono">
-            <div id="timer" class="font-bold text-xl w-12 text-center">0.0s</div>
+          <div class="flex items-center gap-2 bg-gray-100 px-4 py-1 rounded-2xl text-sm font-mono">
+            <div id="timer" class="font-bold text-xl w-14 text-center">0.0s</div>
             <div class="text-gray-400">|</div>
-            <div id="mode-label" class="font-semibold text-emerald-600">Bereit</div>
+            <div id="mode-label" class="font-semibold text-emerald-600 text-xs">BEREIT</div>
           </div>
         </div>
         
-        <canvas id="canvas" width="720" height="420" class="w-full bg-[#f0f9ff]"></canvas>
+        <canvas id="canvas" width="680" height="380" class="w-full bg-[#f0f9ff]"></canvas>
         
-        <div class="flex items-center justify-center gap-3 mt-4">
-          <button onclick="adjustSpeed(-0.5)" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-2xl font-bold text-lg active:scale-95 transition">–</button>
-          <div class="px-5 py-1.5 bg-white border-2 border-gray-300 rounded-2xl text-center min-w-[140px]">
-            <div class="text-xs text-gray-500">GESCHWINDIGKEIT</div>
-            <div class="font-mono text-2xl font-bold text-gray-700" id="speed-value">1.0×</div>
+        <div class="flex justify-center items-center gap-3 mt-4">
+          <button onclick="adjustSpeed(-0.3)" class="w-9 h-9 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-2xl text-xl font-bold active:scale-90">-</button>
+          <div class="px-4 py-1 bg-white border-2 border-gray-300 rounded-2xl text-center min-w-[110px]">
+            <div class="text-[10px] text-gray-500 tracking-widest">SLOW-MOTION</div>
+            <div class="font-mono text-xl font-bold text-gray-700" id="speed-value">0.7×</div>
           </div>
-          <button onclick="adjustSpeed(0.5)" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-2xl font-bold text-lg active:scale-95 transition">+</button>
-        </div>
-      </div>
-      
-      <!-- HERO CARDS -->
-      <div class="lg:col-span-5 space-y-4">
-        <h3 class="font-bold text-2xl px-2 text-orange-600 flex items-center gap-2">🦸‍♂️ Deine 3 Power-Helden</h3>
-        
-        <div onclick="highlightHero(0)" class="hero-card bg-gradient-to-br from-yellow-300 to-amber-400 rounded-3xl p-4 flex gap-4 cursor-pointer border-4 border-yellow-500" id="hero-0">
-          <div class="w-20 h-20 flex-shrink-0 bg-white rounded-2xl flex items-center justify-center text-5xl shadow-inner">⚡</div>
-          <div class="flex-1 min-w-0">
-            <div class="flex justify-between items-start">
-              <div>
-                <div class="font-black text-2xl text-yellow-900">BLITZ-BOLT</div>
-                <div class="text-xs font-bold text-yellow-700 -mt-1">SOFORT-ENERGIE</div>
-              </div>
-              <div class="text-right">
-                <div class="text-4xl font-black text-yellow-900" id="bolt-perc">100</div>
-                <div class="text-[10px] font-bold text-yellow-700 -mt-1">%</div>
-              </div>
-            </div>
-            <div class="text-xs leading-tight mt-1 text-yellow-900">
-              <strong>Wie ein schneller Zucker-Flash!</strong><br>
-              Gibt dir 8–12 Sekunden mega Power – dann ist er leer.
-            </div>
-          </div>
-        </div>
-        
-        <div onclick="highlightHero(1)" class="hero-card bg-gradient-to-br from-red-300 to-rose-400 rounded-3xl p-4 flex gap-4 cursor-pointer border-4 border-red-500" id="hero-1">
-          <div class="w-20 h-20 flex-shrink-0 bg-white rounded-2xl flex items-center justify-center text-5xl shadow-inner">🔥</div>
-          <div class="flex-1 min-w-0">
-            <div class="flex justify-between items-start">
-              <div>
-                <div class="font-black text-2xl text-red-900">POWER-SPRINTER</div>
-                <div class="text-xs font-bold text-red-700 -mt-1">KURZZEIT-ENERGIE</div>
-              </div>
-              <div class="text-right">
-                <div class="text-4xl font-black text-red-900" id="saure-perc">0</div>
-                <div class="text-[10px] font-bold text-red-700 -mt-1">%</div>
-              </div>
-            </div>
-            <div class="text-xs leading-tight mt-1 text-red-900">
-              <strong>Wie ein Feuerwerk im Muskel!</strong><br>
-              Hilft 30–90 Sekunden – aber dann brennen die Beine.
-            </div>
-          </div>
-        </div>
-        
-        <div onclick="highlightHero(2)" class="hero-card bg-gradient-to-br from-cyan-300 to-teal-400 rounded-3xl p-4 flex gap-4 cursor-pointer border-4 border-cyan-500" id="hero-2">
-          <div class="w-20 h-20 flex-shrink-0 bg-white rounded-2xl flex items-center justify-center text-5xl shadow-inner">🌬️</div>
-          <div class="flex-1 min-w-0">
-            <div class="flex justify-between items-start">
-              <div>
-                <div class="font-black text-2xl text-teal-900">DAUER-ATEM</div>
-                <div class="text-xs font-bold text-teal-700 -mt-1">AUSDAUER-ENERGIE</div>
-              </div>
-              <div class="text-right">
-                <div class="text-4xl font-black text-teal-900" id="aero-perc">0</div>
-                <div class="text-[10px] font-bold text-teal-700 -mt-1">%</div>
-              </div>
-            </div>
-            <div class="text-xs leading-tight mt-1 text-teal-900">
-              <strong>Der Marathon-King!</strong><br>
-              Braucht nur Sauerstoff aus der Luft und kann stundenlang laufen.
-            </div>
-          </div>
+          <button onclick="adjustSpeed(0.3)" class="w-9 h-9 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-2xl text-xl font-bold active:scale-90">+</button>
         </div>
       </div>
       
-      <!-- CONTROLS -->
-      <div class="lg:col-span-12 bg-white rounded-3xl p-6 shadow-xl border-4 border-purple-300">
-        <div class="flex flex-wrap items-center justify-center gap-4">
-          <button onclick="startDemo(0)" class="px-8 py-4 bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 transition-all text-black font-black text-xl rounded-3xl flex items-center gap-3 shadow-lg active:scale-[0.985]">
+      <div class="xl:col-span-5">
+        <div class="flex items-center gap-2 mb-3 px-1">
+          <div class="text-2xl">🦸‍♂️</div>
+          <div class="font-black text-2xl text-orange-600">Deine 3 Power-Helden</div>
+        </div>
+        
+        <div onclick="showHeroExplanation(0)" class="hero-card bg-gradient-to-br from-yellow-300 to-amber-300 rounded-3xl p-4 mb-3 flex gap-4 cursor-pointer border-4 border-yellow-400" id="hero-0">
+          <div class="w-16 h-16 flex-shrink-0 bg-white rounded-2xl flex items-center justify-center text-4xl shadow-inner">⚡</div>
+          <div class="flex-1 min-w-0 pt-1">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="font-black text-xl text-yellow-900">BLITZ-BOLT</div>
+                <div class="text-[10px] font-bold text-yellow-700 -mt-0.5">SOFORT-ENERGIE</div>
+              </div>
+              <div class="text-right">
+                <div class="text-3xl font-black text-yellow-900" id="bolt-perc">100</div>
+                <div class="text-[9px] font-bold text-yellow-700 -mt-1">%</div>
+              </div>
+            </div>
+            <div class="mt-2">
+              <div class="progress-bar bg-yellow-200"><div class="progress-fill bg-yellow-500" id="bolt-bar" style="width: 100%"></div></div>
+            </div>
+            <div class="text-[11px] leading-tight mt-1.5 text-yellow-900">Wie ein schneller Zucker-Flash! Gibt 8–12 Sekunden mega Power.</div>
+          </div>
+        </div>
+        
+        <div onclick="showHeroExplanation(1)" class="hero-card bg-gradient-to-br from-red-300 to-rose-300 rounded-3xl p-4 mb-3 flex gap-4 cursor-pointer border-4 border-red-400" id="hero-1">
+          <div class="w-16 h-16 flex-shrink-0 bg-white rounded-2xl flex items-center justify-center text-4xl shadow-inner">🔥</div>
+          <div class="flex-1 min-w-0 pt-1">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="font-black text-xl text-red-900">POWER-SPRINTER</div>
+                <div class="text-[10px] font-bold text-red-700 -mt-0.5">KURZZEIT-ENERGIE</div>
+              </div>
+              <div class="text-right">
+                <div class="text-3xl font-black text-red-900" id="saure-perc">0</div>
+                <div class="text-[9px] font-bold text-red-700 -mt-1">%</div>
+              </div>
+            </div>
+            <div class="mt-2">
+              <div class="progress-bar bg-red-200"><div class="progress-fill bg-red-500" id="saure-bar" style="width: 0%"></div></div>
+            </div>
+            <div class="text-[11px] leading-tight mt-1.5 text-red-900">Wie ein Feuerwerk im Muskel! Hilft 30–90 Sekunden.</div>
+          </div>
+        </div>
+        
+        <div onclick="showHeroExplanation(2)" class="hero-card bg-gradient-to-br from-cyan-300 to-teal-300 rounded-3xl p-4 flex gap-4 cursor-pointer border-4 border-teal-400" id="hero-2">
+          <div class="w-16 h-16 flex-shrink-0 bg-white rounded-2xl flex items-center justify-center text-4xl shadow-inner">🌬️</div>
+          <div class="flex-1 min-w-0 pt-1">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="font-black text-xl text-teal-900">DAUER-ATEM</div>
+                <div class="text-[10px] font-bold text-teal-700 -mt-0.5">AUSDAUER-ENERGIE</div>
+              </div>
+              <div class="text-right">
+                <div class="text-3xl font-black text-teal-900" id="aero-perc">0</div>
+                <div class="text-[9px] font-bold text-teal-700 -mt-1">%</div>
+              </div>
+            </div>
+            <div class="mt-2">
+              <div class="progress-bar bg-teal-200"><div class="progress-fill bg-teal-500" id="aero-bar" style="width: 0%"></div></div>
+            </div>
+            <div class="text-[11px] leading-tight mt-1.5 text-teal-900">Der Marathon-King! Braucht nur Sauerstoff und läuft stundenlang.</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="xl:col-span-12 bg-white rounded-3xl p-6 shadow-2xl border-4 border-purple-300">
+        <div class="flex flex-wrap justify-center gap-4">
+          <button onclick="startDemo(0)" class="px-7 py-4 bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-black font-black text-lg rounded-3xl flex items-center gap-3 shadow-lg active:scale-[0.985]">
             <span class="text-3xl">🚀</span> 
-            <span>KURZER TURBO-SPRINT<br><span class="text-xs font-normal">(100m – 12 Sekunden)</span></span>
+            <div class="text-left"><div class="font-black">KURZER TURBO-SPRINT</div><div class="text-xs -mt-0.5 opacity-70">(100m – 12 Sekunden)</div></div>
           </button>
           
-          <button onclick="startDemo(1)" class="px-8 py-4 bg-red-500 hover:bg-red-600 active:bg-red-700 transition-all text-white font-black text-xl rounded-3xl flex items-center gap-3 shadow-lg active:scale-[0.985]">
+          <button onclick="startDemo(1)" class="px-7 py-4 bg-red-500 hover:bg-red-600 active:bg-red-700 text-white font-black text-lg rounded-3xl flex items-center gap-3 shadow-lg active:scale-[0.985]">
             <span class="text-3xl">🏃</span> 
-            <span>MITTLERES RENNEN<br><span class="text-xs font-normal">(400m – 60 Sekunden)</span></span>
+            <div class="text-left"><div class="font-black">MITTLERES RENNEN</div><div class="text-xs -mt-0.5 opacity-70">(400m – 60 Sekunden)</div></div>
           </button>
           
-          <button onclick="startDemo(2)" class="px-8 py-4 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 transition-all text-white font-black text-xl rounded-3xl flex items-center gap-3 shadow-lg active:scale-[0.985]">
+          <button onclick="startDemo(2)" class="px-7 py-4 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white font-black text-lg rounded-3xl flex items-center gap-3 shadow-lg active:scale-[0.985]">
             <span class="text-3xl">🌳</span> 
-            <span>LANGER ABENTEUER-LAUF<br><span class="text-xs font-normal">(3000m – 3 Minuten)</span></span>
+            <div class="text-left"><div class="font-black">LANGER ABENTEUER-LAUF</div><div class="text-xs -mt-0.5 opacity-70">(3000m – 3 Minuten)</div></div>
           </button>
           
-          <div class="flex items-center gap-2">
-            <button onclick="pauseDemo()" class="px-5 py-3.5 bg-gray-200 hover:bg-gray-300 rounded-3xl font-bold text-lg">⏸️ Pause</button>
-            <button onclick="resetDemo()" class="px-5 py-3.5 bg-gray-800 text-white hover:bg-black rounded-3xl font-bold text-lg">🔄 Reset</button>
+          <div class="flex items-center gap-2 ml-2">
+            <button onclick="pauseDemo()" class="px-5 py-3.5 bg-gray-200 hover:bg-gray-300 rounded-3xl font-bold text-base">⏸️ Pause</button>
+            <button onclick="resetDemo()" class="px-5 py-3.5 bg-gray-800 text-white hover:bg-black rounded-3xl font-bold text-base">🔄 Reset</button>
           </div>
-        </div>
-        
-        <div class="mt-5 flex justify-center gap-4">
-          <button onclick="showExplanation()" class="inline-flex items-center gap-2 px-6 py-2.5 bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold rounded-2xl text-sm">
-            <span>🧠</span> 
-            <span>Mehr lernen – Wissenschaft kindgerecht erklärt</span>
-          </button>
         </div>
       </div>
       
     </div>
     
-    <!-- LIVE INFO -->
     <div class="mt-6 bg-gradient-to-r from-slate-800 to-gray-900 text-white rounded-3xl p-5 shadow-inner">
-      <div class="flex items-center gap-3 mb-2">
+      <div class="flex items-center gap-3 mb-1">
         <div class="text-2xl">📢</div>
-        <div class="font-bold text-lg">Was passiert gerade in deinem Körper?</div>
+        <div class="font-bold">Was passiert gerade in deinem Körper?</div>
       </div>
-      <div id="live-info" class="text-xl leading-tight font-medium min-h-[52px]">
-        Klicke auf einen Button und beobachte, wie deine Power-Helden die Arbeit übernehmen!
+      <div id="live-info" class="text-xl font-medium min-h-[48px]">
+        Klicke auf einen Button und beobachte, wie deine Power-Helden nacheinander die Führung übernehmen!
       </div>
     </div>
     
   </div>
   
-  <footer class="text-center py-6 text-xs text-gray-500 border-t border-gray-200 mt-8">
-    © 2026 Straight Edge Media • Power-Helden v2.1 • Didaktisches Konzept für den Sportunterricht • Alle Rechte vorbehalten
+  <footer class="text-center py-5 text-xs text-gray-500">
+    © 2026 Straight Edge Media • Power-Helden v3.0 • Didaktisches Konzept für den Sportunterricht
   </footer>
 
-  <!-- EXPLANATION OVERLAY -->
-  <div id="explanation-overlay" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[200] p-4">
-    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-auto p-8 relative overlay">
-      <button onclick="hideExplanation()" class="absolute top-5 right-5 text-4xl leading-none text-gray-400 hover:text-black">×</button>
-      
-      <div class="text-center mb-6">
-        <div class="text-5xl mb-2">🧠</div>
-        <h2 class="text-4xl font-black">Wie funktioniert das eigentlich?</h2>
-        <p class="text-gray-500 mt-1">Wissenschaft kindgerecht erklärt – für alle, die mehr wissen wollen</p>
-      </div>
-      
-      <div class="space-y-6">
-        
-        <div class="bg-yellow-50 border-l-8 border-yellow-400 p-5 rounded-2xl">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="text-4xl">⚡</div>
-            <div class="font-black text-2xl text-yellow-700">Blitz-Bolt – Das ATP-PC-System</div>
-          </div>
-          <div class="text-[15px] text-yellow-900 leading-relaxed">
-            Dein Körper hat einen winzigen „Sofort-Akku“ namens <strong>ATP</strong> (Adenosintriphosphat). 
-            Das ist wie ein super-schneller Energieshot. Er reicht nur für <strong>8–12 Sekunden</strong> – genau richtig für den Start eines Sprints oder einen hohen Sprung. 
-            Danach ist der Akku leer und muss neu aufgeladen werden. Deshalb wirst du nach dem ersten Sprint schnell langsamer.
-          </div>
-          <div class="mt-2 text-xs font-bold text-yellow-600">💡 Tipp: Wie ein Handy-Akku, der nach 10 Sekunden schon fast leer ist!</div>
-        </div>
-        
-        <div class="bg-red-50 border-l-8 border-red-400 p-5 rounded-2xl">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="text-4xl">🔥</div>
-            <div class="font-black text-2xl text-red-700">Power-Sprinter – Die anaerobe Glykolyse</div>
-          </div>
-          <div class="text-[15px] text-red-900 leading-relaxed">
-            Dein Körper verbrennt Zucker (Glykogen) aus den Muskeln – aber <strong>ohne Sauerstoff</strong>. 
-            Das geht ziemlich schnell, produziert aber einen „Abfallstoff“ namens <strong>Milchsäure</strong>. 
-            Die macht die Beine schwer und brennend. Deshalb hältst du 400m oder 800m nur eine bestimmte Zeit durch. 
-            Der Körper braucht danach eine Pause, um die Milchsäure wieder loszuwerden.
-          </div>
-          <div class="mt-2 text-xs font-bold text-red-600">💡 Tipp: Wie ein Feuerwerk – hell und stark, aber schnell vorbei!</div>
-        </div>
-        
-        <div class="bg-teal-50 border-l-8 border-teal-400 p-5 rounded-2xl">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="text-4xl">🌬️</div>
-            <div class="font-black text-2xl text-teal-700">Dauer-Atem – Das aerobe System</div>
-          </div>
-          <div class="text-[15px] text-teal-900 leading-relaxed">
-            Das ist der „Langstrecken-Held“. Er nutzt <strong>Sauerstoff aus der Luft</strong> (den du einatmest) und verbrennt damit Fett und Kohlenhydrate ganz langsam und effizient. 
-            Das geht stundenlang! Deshalb kannst du joggen, schwimmen oder Rad fahren, ohne schnell müde zu werden. 
-            Je besser du trainierst, desto besser wird dieser Held.
-          </div>
-          <div class="mt-2 text-xs font-bold text-teal-600">💡 Tipp: Wie ein Sparmodus im Auto – langsam, aber sehr lange!</div>
-        </div>
-        
-        <div class="bg-gradient-to-r from-purple-100 to-pink-100 p-5 rounded-2xl border border-purple-200">
-          <div class="font-bold text-purple-700 mb-2">🎯 Wichtig für den Sportunterricht:</div>
-          <div class="text-sm text-purple-900">
-            Die drei Helden arbeiten <strong>fast immer zusammen</strong>! Nur der Anteil ändert sich. 
-            Beim 100m-Sprint ist Blitz-Bolt 90 % aktiv. Beim Marathon ist Dauer-Atem 95 % aktiv. 
-            Je besser du trainierst, desto besser arbeiten sie zusammen – und du wirst schneller und ausdauernder!
-          </div>
-        </div>
-        
-      </div>
-      
-      <div class="text-center mt-8">
-        <button onclick="hideExplanation()" class="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-2xl">Alles klar! Zurück zum Training →</button>
-      </div>
+  <div id="explanation-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[300] p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-8 relative">
+      <button onclick="hideExplanation()" class="absolute top-5 right-5 text-3xl text-gray-400 hover:text-black">×</button>
+      <div id="modal-content"></div>
     </div>
   </div>
 
@@ -311,163 +223,309 @@
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     
-    let time = 0, running = false, mode = 0, speedMultiplier = 1.0, paused = false, animationFrame = null;
+    let time = 0, running = false, mode = 0, speedMultiplier = 0.7, paused = false, animationFrame = null;
+    
+    function drawBackground() {
+      const sky = ctx.createLinearGradient(0, 0, 0, 220);
+      sky.addColorStop(0, '#bae6fd');
+      sky.addColorStop(1, '#e0f2fe');
+      ctx.fillStyle = sky;
+      ctx.fillRect(0, 0, canvas.width, 220);
+      
+      ctx.fillStyle = '#fef08c';
+      ctx.beginPath(); ctx.arc(560, 70, 38, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fcd34d';
+      ctx.beginPath(); ctx.arc(560, 70, 30, 0, Math.PI * 2); ctx.fill();
+      
+      ctx.fillStyle = '#86efac';
+      ctx.fillRect(0, 220, canvas.width, 160);
+      ctx.fillStyle = '#4ade80';
+      for (let x = 0; x < canvas.width; x += 16) {
+        ctx.fillRect(x, 215, 10, 28 + Math.sin(x) * 6);
+      }
+    }
+    
+    function drawRunner(bolt, saure, aero) {
+      const x = 280 + Math.sin(time / 5) * 12;
+      const y = 195 + Math.sin(time / 3) * 5;
+      const isSprinting = bolt > 60;
+      const isTired = saure > 50 && aero < 30;
+      
+      ctx.fillStyle = 'rgba(0,0,0,0.12)';
+      ctx.beginPath();
+      ctx.ellipse(x, 310, 32, 8, 0, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 16;
+      const legSwing = Math.sin(time * 2.5) * (isSprinting ? 1.2 : 0.8);
+      
+      ctx.beginPath();
+      ctx.moveTo(x - 10, y + 35);
+      ctx.lineTo(x - 18 + legSwing * 10, y + 75);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(x + 10, y + 35);
+      ctx.lineTo(x + 18 - legSwing * 10, y + 75);
+      ctx.stroke();
+      
+      ctx.fillStyle = isTired ? '#64748b' : '#e11d48';
+      ctx.fillRect(x - 20, y, 40, 48);
+      
+      ctx.fillStyle = '#fed7aa';
+      ctx.beginPath();
+      ctx.arc(x, y - 15, 20, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.fillStyle = '#1e2937';
+      ctx.fillRect(x - 8, y - 18, 5, 5);
+      ctx.fillRect(x + 3, y - 18, 5, 5);
+      
+      ctx.strokeStyle = '#1e2937';
+      ctx.lineWidth = 2;
+      if (isSprinting) {
+        ctx.beginPath();
+        ctx.arc(x, y - 6, 5, 0.3, Math.PI - 0.3);
+        ctx.stroke();
+      } else if (isTired) {
+        ctx.beginPath();
+        ctx.moveTo(x - 4, y - 4);
+        ctx.lineTo(x + 4, y - 4);
+        ctx.stroke();
+      } else {
+        ctx.beginPath();
+        ctx.arc(x, y - 5, 4, 0.4, Math.PI - 0.4);
+        ctx.stroke();
+      }
+      
+      ctx.strokeStyle = '#e11d48';
+      ctx.lineWidth = 11;
+      const armSwing = Math.cos(time * 2.5) * (isSprinting ? 1.1 : 0.75);
+      
+      ctx.beginPath();
+      ctx.moveTo(x - 14, y + 15);
+      ctx.lineTo(x - 32 + armSwing * 9, y + 42);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(x + 14, y + 15);
+      ctx.lineTo(x + 32 - armSwing * 9, y + 42);
+      ctx.stroke();
+      
+      if (isSprinting && time % 4 < 2) {
+        ctx.strokeStyle = '#fef08c';
+        ctx.lineWidth = 2.5;
+        for (let i = 0; i < 3; i++) {
+          ctx.beginPath();
+          ctx.moveTo(x - 55 - i * 14, y + 10 + Math.random() * 30);
+          ctx.lineTo(x - 30 - i * 14, y + 25 + Math.random() * 25);
+          ctx.stroke();
+        }
+      }
+    }
+    
+    function drawFlyingHeroes(bolt, saure, aero) {
+      const positions = [
+        { x: 120, y: 95, active: bolt > 55 },
+        { x: 340, y: 95, active: saure > 45 },
+        { x: 560, y: 95, active: aero > 35 }
+      ];
+      
+      const emojis = ['⚡', '🔥', '🌬️'];
+      const colors = ['#fde047', '#f87171', '#14b8a6'];
+      
+      for (let i = 0; i < 3; i++) {
+        const p = positions[i];
+        const scale = p.active ? 1.15 : 0.75;
+        const alpha = p.active ? 1 : 0.35;
+        const yOffset = p.active ? Math.sin(time * 1.5 + i) * 6 : 0;
+        
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.translate(p.x, p.y + yOffset);
+        ctx.scale(scale, scale);
+        
+        if (p.active) {
+          ctx.shadowColor = colors[i];
+          ctx.shadowBlur = 25;
+        }
+        
+        ctx.font = '42px Fredoka';
+        ctx.textAlign = 'center';
+        ctx.fillText(emojis[i], 0, 15);
+        
+        ctx.restore();
+      }
+    }
+    
+    function updateUI(bolt, saure, aero) {
+      document.getElementById('bolt-perc').textContent = Math.round(bolt);
+      document.getElementById('saure-perc').textContent = Math.round(saure);
+      document.getElementById('aero-perc').textContent = Math.round(aero);
+      
+      document.getElementById('bolt-bar').style.width = bolt + '%';
+      document.getElementById('saure-bar').style.width = saure + '%';
+      document.getElementById('aero-bar').style.width = aero + '%';
+      
+      document.getElementById('hero-0').classList.toggle('active', bolt > 55);
+      document.getElementById('hero-1').classList.toggle('active', saure > 45);
+      document.getElementById('hero-2').classList.toggle('active', aero > 35);
+      
+      const info = document.getElementById('live-info');
+      let msg = 'Klicke auf einen Button und beobachte die Übernahme!';
+      
+      if (running) {
+        if (bolt > 55) msg = '⚡ Blitz-Bolt übernimmt die Führung! Turbo-Start!';
+        else if (saure > 45 && aero < 40) msg = '🔥 Power-Sprinter springt vor! Die Beine werden warm...';
+        else if (aero > 35) msg = '🌬️ Dauer-Atem überholt alle! Jetzt geht es entspannt weiter.';
+      }
+      info.textContent = msg;
+      
+      document.getElementById('timer').textContent = (time / 10).toFixed(1) + 's';
+      const labels = ['TURBO-SPRINT', 'MITTLERES RENNEN', 'LANGER LAUF'];
+      document.getElementById('mode-label').textContent = labels[mode] || 'BEREIT';
+    }
     
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawBackground();
       
-      const sky = ctx.createLinearGradient(0, 0, 0, 280);
-      sky.addColorStop(0, "#bae6fd");
-      sky.addColorStop(1, "#e0f2fe");
-      ctx.fillStyle = sky;
-      ctx.fillRect(0, 0, canvas.width, 280);
+      let bolt = 100, saure = 0, aero = 0;
       
-      ctx.fillStyle = "#fef08c";
-      ctx.beginPath(); ctx.arc(620, 90, 48, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = "#fcd34d";
-      ctx.beginPath(); ctx.arc(620, 90, 38, 0, Math.PI * 2); ctx.fill();
-      
-      ctx.fillStyle = "#86efac";
-      ctx.fillRect(0, 280, canvas.width, 140);
-      ctx.fillStyle = "#4ade80";
-      for (let x = 0; x < canvas.width; x += 18) {
-        ctx.fillRect(x, 275, 12, 35 + Math.sin(x / 20) * 8);
-      }
-      
-      const cx = 280 + Math.sin(time / 6) * 18;
-      const cy = 245 + Math.sin(time / 3.5) * 6;
-      
-      ctx.fillStyle = "#e11d48";
-      ctx.fillRect(cx - 26, cy + 5, 52, 58);
-      ctx.fillStyle = "#fed7aa";
-      ctx.beginPath(); ctx.arc(cx, cy - 18, 26, 0, Math.PI * 2); ctx.fill();
-      
-      ctx.fillStyle = "#1e2937";
-      ctx.fillRect(cx - 10, cy - 23, 6, 6);
-      ctx.fillRect(cx + 4, cy - 23, 6, 6);
-      
-      const bolt = running ? Math.max(5, 100 - time * (mode === 0 ? 7.5 : 5)) : 100;
-      const saure = running ? Math.max(0, (mode === 0 ? 80 : 95) - time * (mode === 0 ? 3 : 2.2)) : 0;
-      const aero = running ? Math.max(0, Math.min(100, (time - 15) * 1.8)) : 0;
-      
-      const positions = [120, 340, 560];
-      const percs = [bolt, saure, aero];
-      const colors = ["#fde047", "#f87171", "#14b8a6"];
-      
-      for (let i = 0; i < 3; i++) {
-        ctx.fillStyle = "#e2e8f0";
-        ctx.fillRect(positions[i], 380, 68, 28);
-        ctx.fillStyle = colors[i];
-        ctx.fillRect(positions[i], 380, 68, Math.max(8, percs[i] * 1.8));
-        ctx.fillStyle = "#1e2937";
-        ctx.font = "bold 15px Fredoka";
-        ctx.fillText(Math.round(percs[i]) + "%", positions[i] + 12, 400);
-      }
-      
-      document.getElementById("bolt-perc").textContent = Math.round(bolt);
-      document.getElementById("saure-perc").textContent = Math.round(saure);
-      document.getElementById("aero-perc").textContent = Math.round(aero);
-      
-      document.getElementById("hero-0").classList.toggle("active", bolt > 40);
-      document.getElementById("hero-1").classList.toggle("active", saure > 40);
-      document.getElementById("hero-2").classList.toggle("active", aero > 40);
-      
-      let msg = "Klicke auf einen Button und beobachte deine Power-Helden!";
       if (running) {
-        if (time < 8) msg = "⚡ Blitz-Bolt gibt Vollgas! Wie ein Turbo-Boost für den Start.";
-        else if (time < 25 && mode !== 2) msg = "🔥 Power-Sprinter übernimmt! Jetzt wird es anstrengend.";
-        else msg = "🌬️ Dauer-Atem ist jetzt der Boss! Frische Luft = endlose Energie.";
+        if (mode === 0) {
+          bolt = Math.max(8, 100 - time * 6.5);
+          saure = Math.max(0, 75 - time * 2.8);
+        } else if (mode === 1) {
+          bolt = Math.max(5, 100 - time * 4.2);
+          saure = Math.max(0, 92 - time * 1.9);
+          aero = Math.max(0, (time - 18) * 1.6);
+        } else {
+          bolt = Math.max(0, 100 - time * 8);
+          saure = Math.max(0, 100 - time * 1.5);
+          aero = Math.min(100, (time - 22) * 1.25);
+        }
       }
-      document.getElementById("live-info").textContent = msg;
-      document.getElementById("timer").textContent = (time / 10).toFixed(1) + "s";
       
-      const labels = ["TURBO-SPRINT", "MITTLERES RENNEN", "LANGER LAUF"];
-      document.getElementById("mode-label").textContent = labels[mode] || "BEREIT";
+      drawRunner(bolt, saure, aero);
+      drawFlyingHeroes(bolt, saure, aero);
+      updateUI(bolt, saure, aero);
     }
     
     function animate() {
       if (!running || paused) return;
-      time += 0.65 * speedMultiplier;
+      time += 0.42 * speedMultiplier;
       draw();
       
-      const maxTime = mode === 0 ? 45 : mode === 1 ? 120 : 220;
+      const maxTime = mode === 0 ? 55 : mode === 1 ? 145 : 260;
       if (time < maxTime) {
         animationFrame = requestAnimationFrame(animate);
       } else {
         running = false;
-        document.getElementById("live-info").innerHTML = "🎉 <strong>Super!</strong> Du hast gesehen, wie deine Power-Helden zusammenarbeiten!";
+        document.getElementById('live-info').innerHTML = '🎉 <strong>Super!</strong> Du hast gesehen, wie die Helden nacheinander die Führung übernommen haben!';
       }
     }
     
     function startDemo(m) {
       if (animationFrame) cancelAnimationFrame(animationFrame);
-      mode = m; time = 0; running = true; paused = false;
-      document.getElementById("live-info").textContent = ["TURBO-SPRINT gestartet!", "MITTLERES RENNEN gestartet!", "LANGER ABENTEUER-LAUF gestartet!"][m];
+      mode = m;
+      time = 0;
+      running = true;
+      paused = false;
+      document.getElementById('live-info').textContent = ['TURBO-SPRINT gestartet!', 'MITTLERES RENNEN gestartet!', 'LANGER ABENTEUER-LAUF gestartet!'][m];
       animate();
     }
     
     function pauseDemo() { paused = !paused; if (!paused && running) animate(); }
     function resetDemo() {
       if (animationFrame) cancelAnimationFrame(animationFrame);
-      running = false; paused = false; time = 0;
-      document.getElementById("bolt-perc").textContent = "100";
-      document.getElementById("saure-perc").textContent = "0";
-      document.getElementById("aero-perc").textContent = "0";
-      document.getElementById("live-info").textContent = "Klicke auf einen Button und beobachte deine Power-Helden!";
-      document.getElementById("timer").textContent = "0.0s";
-      document.getElementById("mode-label").textContent = "BEREIT";
-      for (let i = 0; i < 3; i++) document.getElementById("hero-" + i).classList.remove("active");
+      running = false;
+      paused = false;
+      time = 0;
+      document.getElementById('bolt-perc').textContent = '100';
+      document.getElementById('saure-perc').textContent = '0';
+      document.getElementById('aero-perc').textContent = '0';
+      document.getElementById('bolt-bar').style.width = '100%';
+      document.getElementById('saure-bar').style.width = '0%';
+      document.getElementById('aero-bar').style.width = '0%';
+      document.getElementById('live-info').textContent = 'Klicke auf einen Button und beobachte die Übernahme!';
+      document.getElementById('timer').textContent = '0.0s';
+      document.getElementById('mode-label').textContent = 'BEREIT';
+      for (let i = 0; i < 3; i++) document.getElementById('hero-' + i).classList.remove('active');
       draw();
     }
     
     function adjustSpeed(delta) {
-      speedMultiplier = Math.max(0.4, Math.min(3.0, speedMultiplier + delta));
-      document.getElementById("speed-value").textContent = speedMultiplier.toFixed(1) + "×";
+      speedMultiplier = Math.max(0.3, Math.min(2.5, speedMultiplier + delta));
+      document.getElementById('speed-value').textContent = speedMultiplier.toFixed(1) + '×';
     }
     
-    function highlightHero(idx) {
-      for (let i = 0; i < 3; i++) document.getElementById("hero-" + i).classList.toggle("active", i === idx);
+    function showHeroExplanation(idx) {
+      const modal = document.getElementById('explanation-modal');
+      const content = document.getElementById('modal-content');
+      
       const explanations = [
-        "⚡ BLITZ-BOLT = Dein Turbo für die ersten 8–12 Sekunden. Wie ein schneller Energieshot aus Zucker. Danach ist er leer – genau wie bei einem 100m-Sprint!",
-        "🔥 POWER-SPRINTER = Hilft bei 400m oder 800m. Er verbrennt Glykogen und produziert Milchsäure – deshalb brennen die Beine. Aber er ist stark!",
-        "🌬️ DAUER-ATEM = Der Held für lange Läufe. Er nutzt Sauerstoff aus der Luft und kann stundenlang Energie liefern. Deshalb kannst du joggen, ohne schnell müde zu werden."
+        { emoji: '⚡', title: 'Blitz-Bolt – Das ATP-PC-System', color: 'yellow', text: 'Dein Körper hat einen winzigen „Sofort-Akku“ namens <strong>ATP</strong>. Das ist wie ein super-schneller Energieshot. Er reicht nur für <strong>8–12 Sekunden</strong> – perfekt für den Start eines Sprints oder einen hohen Sprung. Danach ist der Akku leer.', tip: 'Wie ein Handy-Akku, der nach 10 Sekunden schon fast leer ist!' },
+        { emoji: '🔥', title: 'Power-Sprinter – Die anaerobe Glykolyse', color: 'red', text: 'Dein Körper verbrennt Zucker aus den Muskeln – aber <strong>ohne Sauerstoff</strong>. Das geht schnell, produziert aber Milchsäure. Die macht die Beine schwer und brennend. Deshalb hältst du 400m oder 800m nur eine bestimmte Zeit durch.', tip: 'Wie ein Feuerwerk – hell und stark, aber schnell vorbei!' },
+        { emoji: '🌬️', title: 'Dauer-Atem – Das aerobe System', color: 'teal', text: 'Das ist der „Langstrecken-Held“. Er nutzt <strong>Sauerstoff aus der Luft</strong> und verbrennt Fett und Kohlenhydrate ganz langsam und effizient. Das geht stundenlang! Deshalb kannst du joggen, ohne schnell müde zu werden.', tip: 'Wie ein Sparmodus im Auto – langsam, aber sehr lange!' }
       ];
-      const infoEl = document.getElementById("live-info");
-      infoEl.innerHTML = explanations[idx];
-      setTimeout(() => { if (!running) infoEl.textContent = "Klicke auf einen Button und beobachte deine Power-Helden!"; }, 4200);
-    }
-    
-    function showExplanation() {
-      document.getElementById("explanation-overlay").classList.remove("hidden");
-      document.getElementById("explanation-overlay").classList.add("flex");
+      
+      const exp = explanations[idx];
+      
+      content.innerHTML = `
+        <div class="text-center mb-6">
+          <div class="text-6xl mb-2">${exp.emoji}</div>
+          <div class="font-black text-3xl text-${exp.color}-600">${exp.title}</div>
+        </div>
+        
+        <div class="text-[15px] leading-relaxed text-gray-700 mb-6">
+          ${exp.text}
+        </div>
+        
+        <div class="bg-${exp.color}-50 border-l-4 border-${exp.color}-400 p-4 rounded-2xl text-sm">
+          <div class="font-bold text-${exp.color}-700">💡 Tipp für dich:</div>
+          <div class="text-${exp.color}-900">${exp.tip}</div>
+        </div>
+        
+        <div class="mt-6 text-center">
+          <button onclick="hideExplanation()" class="px-8 py-3 bg-${exp.color}-600 hover:bg-${exp.color}-700 text-white font-bold rounded-2xl">Alles klar! →</button>
+        </div>
+      `;
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
     }
     
     function hideExplanation() {
-      const overlay = document.getElementById("explanation-overlay");
-      overlay.classList.remove("flex");
-      overlay.classList.add("hidden");
+      const modal = document.getElementById('explanation-modal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
     }
     
     function init() {
       draw();
-      document.getElementById("speed-value").textContent = speedMultiplier.toFixed(1) + "×";
+      document.getElementById('speed-value').textContent = speedMultiplier.toFixed(1) + '×';
       
       setTimeout(() => {
         if (!running) {
-          const orig = time; time = 12; draw(); time = orig;
+          const orig = time;
+          time = 15;
+          draw();
+          time = orig;
         }
-      }, 800);
+      }, 700);
       
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "1") startDemo(0);
-        if (e.key === "2") startDemo(1);
-        if (e.key === "3") startDemo(2);
-        if (e.key.toLowerCase() === "r") resetDemo();
-        if (e.key === " ") { e.preventDefault(); pauseDemo(); }
-        if (e.key.toLowerCase() === "h") showExplanation();
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '1') startDemo(0);
+        if (e.key === '2') startDemo(1);
+        if (e.key === '3') startDemo(2);
+        if (e.key.toLowerCase() === 'r') resetDemo();
+        if (e.key === ' ') { e.preventDefault(); pauseDemo(); }
+        if (e.key.toLowerCase() === 'h') showHeroExplanation(0);
       });
       
-      console.log("%c[Power-Helden v2.1] App ready – © 2026 Straight Edge Media", "color:#14b8a6");
+      console.log('%c[Power-Helden v3.0] Ready – © 2026 Straight Edge Media', 'color:#14b8a6');
     }
     
     window.onload = init;
