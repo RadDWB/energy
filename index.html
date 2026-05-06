@@ -3,32 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🔥 Power-Helden – Dein Körper als Superheld! ⚡</title>
+  <title>🔥 Power-Helden – Dein Körper als Superheld!</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Comic+Neue:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Comic+Neue:wght@700&display=swap');
     
     body {
       margin: 0;
       font-family: 'Fredoka', sans-serif;
-      background: linear-gradient(135deg, #a8e6cf, #d0f4de, #ffeb9e);
-      overflow: hidden;
+      background: linear-gradient(#a8e6cf, #d0f4de, #ffeb9e);
       color: #333;
+      line-height: 1.5;
     }
-    .header {
-      background: linear-gradient(#ff6b6b, #ff9f1c);
+    header {
+      background: linear-gradient(90deg, #ff6b6b, #ff9f1c);
       color: white;
       text-align: center;
-      padding: 20px;
-      font-size: 2.8rem;
-      text-shadow: 3px 3px 0 #000;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      padding: 25px 15px;
+      font-size: 2.5rem;
+      text-shadow: 4px 4px 0 #000;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    .subtitle {
+      font-size: 1.4rem;
+      margin-top: 10px;
+      opacity: 0.95;
     }
     canvas {
       display: block;
       margin: 20px auto;
-      border-radius: 30px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-      background: #fff;
+      max-width: 100%;
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    }
+    .explanation {
+      max-width: 920px;
+      margin: 15px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      font-size: 1.3rem;
+      text-align: center;
+    }
+    .hero-bar {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin: 20px auto;
+      max-width: 900px;
+      flex-wrap: wrap;
+    }
+    .hero {
+      text-align: center;
+      font-size: 1.4rem;
+      cursor: help;
+      position: relative;
+      padding: 10px;
+    }
+    .hero:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 15px;
+      font-size: 1.1rem;
+      white-space: nowrap;
+      z-index: 20;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
     .controls {
       text-align: center;
@@ -40,42 +85,57 @@
     }
     button {
       font-family: 'Comic Neue', cursive;
-      font-size: 1.4rem;
-      padding: 18px 30px;
+      font-size: 1.45rem;
+      padding: 18px 32px;
       border: none;
       border-radius: 50px;
       cursor: pointer;
       box-shadow: 0 8px 0 #333;
       transition: all 0.1s;
+      min-width: 220px;
     }
     button:active { transform: translateY(4px); box-shadow: 0 4px 0 #333; }
-    .btn-sprint { background: #ffe600; color: #333; }
-    .btn-mittel { background: #ff4d4d; color: white; }
-    .btn-ausdauer { background: #4ecdc4; color: white; }
     .info {
-      text-align: center;
-      font-size: 1.6rem;
-      min-height: 80px;
-      padding: 15px;
-      background: rgba(255,255,255,0.9);
-      margin: 0 20px 20px;
+      max-width: 920px;
+      margin: 0 auto 30px;
+      padding: 20px;
+      background: rgba(255,255,255,0.95);
       border-radius: 20px;
+      font-size: 1.5rem;
+      text-align: center;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
-  <div class="header">✨ DEINE POWER-HELDEN ✨</div>
-  <canvas id="canvas" width="1000" height="580"></canvas>
-  
-  <div class="controls">
-    <button class="btn-sprint" onclick="start(0)">🚀 Kurzer Turbo-Sprint!</button>
-    <button class="btn-mittel" onclick="start(1)">🏃‍♂️ Mittleres Rennen</button>
-    <button class="btn-ausdauer" onclick="start(2)">🌳 Langer Abenteuer-Lauf</button>
-    <button onclick="reset()">🔄 Nochmal von vorne</button>
+  <header>
+    ✨ DEINE POWER-HELDEN ✨<br>
+    <span class="subtitle">So bekommt dein Körper Energie beim Laufen!</span>
+  </header>
+
+  <div class="explanation">
+    <strong>Was siehst du hier?</strong><br>
+    Ein Läufer + drei Superhelden in deinem Körper.<br>
+    Klicke auf einen Button und beobachte, wie die Helden nacheinander die Energie übernehmen!<br>
+    <em>Perfekt für Ausdauer-Sport (z.B. Joggen, Fußball, Schwimmen)</em>
   </div>
-  
-  <div class="info" id="info">Klick auf einen Button und schau, wie deine Helden arbeiten! 🦸‍♂️</div>
+
+  <canvas id="canvas" width="1000" height="520"></canvas>
+
+  <div class="hero-bar">
+    <div class="hero" data-tooltip="Blitz-Bolt: Der Turbo für den ganz kurzen Sprint! Er ist nach 8-10 Sekunden schon müde.">⚡ Blitz-Bolt<br><span id="bolt-perc">100%</span></div>
+    <div class="hero" data-tooltip="Power-Sprinter: Hilft bei mittellangen Läufen. Aber wenn er zu lange arbeitet, brennen die Beine.">🔥 Power-Sprinter<br><span id="saure-perc">0%</span></div>
+    <div class="hero" data-tooltip="Dauer-Atem: Der absolute Held bei langen Läufen! Er braucht nur frische Luft und kann stundenlang laufen.">🌬️ Dauer-Atem<br><span id="aero-perc">0%</span></div>
+  </div>
+
+  <div class="controls">
+    <button onclick="start(0)" style="background:#ffe600;color:#333">🚀 Kurzer Turbo-Sprint!</button>
+    <button onclick="start(1)" style="background:#ff4757;color:white">🏃 Mittleres Rennen (400m)</button>
+    <button onclick="start(2)" style="background:#1abc9c;color:white">🌳 Langer Abenteuer-Lauf (3000m+)</button>
+    <button onclick="reset()" style="background:#bbb">🔄 Nochmal von vorne</button>
+  </div>
+
+  <div class="info" id="info">Drücke einen Button und schau zu, wie deine Power-Helden arbeiten! 🦸‍♂️</div>
 
   <script>
     const canvas = document.getElementById('canvas');
@@ -85,83 +145,87 @@
     function drawSky() {
       ctx.fillStyle = '#87CEEB';
       ctx.fillRect(0, 0, canvas.width, 320);
-      // Sonne
       ctx.fillStyle = '#ffeb3b';
-      ctx.beginPath(); ctx.arc(800, 120, 60, 0, Math.PI*2); ctx.fill();
-      // Wolken
+      ctx.beginPath(); ctx.arc(780, 110, 65, 0, Math.PI*2); ctx.fill();
       ctx.fillStyle = 'white';
-      for(let i=0; i<5; i++) {
-        ctx.beginPath(); ctx.ellipse(150+i*180, 80+i*20, 60, 30, 0, 0, Math.PI*2); ctx.fill();
+      for(let i = 0; i < 6; i++) {
+        ctx.beginPath();
+        ctx.ellipse(120 + i*160, 70 + (i%2)*25, 55, 28, 0, 0, Math.PI*2);
+        ctx.fill();
       }
     }
 
     function drawGround() {
-      ctx.fillStyle = '#98fb98';
-      ctx.fillRect(0, 320, canvas.width, 260);
-      // Gras
-      ctx.fillStyle = '#228b22';
-      for(let x=0; x<canvas.width; x+=30) {
-        ctx.fillRect(x, 320, 15, 40);
+      ctx.fillStyle = '#7CFC00';
+      ctx.fillRect(0, 320, canvas.width, 200);
+      ctx.fillStyle = '#228B22';
+      for(let x = 20; x < canvas.width; x += 35) {
+        ctx.fillRect(x, 310, 18, 45);
       }
     }
 
     function drawRunner() {
-      let x = 250 + Math.sin(time/4)*25;
-      let y = 280;
+      const x = 280 + Math.sin(time / 3.5) * 35;
+      const y = 260;
       
-      // Beine (wippen)
+      // Beine
       ctx.strokeStyle = '#2c3e50';
-      ctx.lineWidth = 18;
+      ctx.lineWidth = 20;
       ctx.beginPath();
-      ctx.moveTo(x-18, y+70);
-      ctx.lineTo(x-35 + Math.sin(time*2)*12, y+130);
-      ctx.moveTo(x+18, y+70);
-      ctx.lineTo(x+35 - Math.sin(time*2)*12, y+130);
+      ctx.moveTo(x-22, y+75);
+      ctx.lineTo(x - 38 + Math.sin(time*2.2)*18, y+145);
+      ctx.moveTo(x+22, y+75);
+      ctx.lineTo(x + 38 - Math.sin(time*2.2)*18, y+145);
       ctx.stroke();
       
       // Körper
       ctx.fillStyle = '#e74c3c';
-      ctx.fillRect(x-30, y-10, 60, 90);
+      ctx.fillRect(x-35, y, 70, 95);
       
       // Kopf
       ctx.fillStyle = '#ffdbac';
-      ctx.beginPath(); ctx.arc(x, y-35, 28, 0, Math.PI*2); ctx.fill();
-      // Augen
+      ctx.beginPath(); ctx.arc(x, y-38, 30, 0, Math.PI*2); ctx.fill();
       ctx.fillStyle = '#333';
-      ctx.beginPath(); ctx.arc(x-10, y-40, 6, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+10, y-40, 6, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(x-10, y-42, 7, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(x+10, y-42, 7, 0, Math.PI*2); ctx.fill();
       
       // Arme
       ctx.strokeStyle = '#e74c3c';
-      ctx.lineWidth = 14;
+      ctx.lineWidth = 16;
       ctx.beginPath();
-      ctx.moveTo(x-25, y+20);
-      ctx.lineTo(x-55 + Math.cos(time*1.5)*15, y+50);
-      ctx.moveTo(x+25, y+20);
-      ctx.lineTo(x+55 - Math.cos(time*1.5)*15, y+50);
+      ctx.moveTo(x-28, y+35);
+      ctx.lineTo(x-60 + Math.cos(time*1.8)*18, y+65);
+      ctx.moveTo(x+28, y+35);
+      ctx.lineTo(x+60 - Math.cos(time*1.8)*18, y+65);
       ctx.stroke();
     }
 
-    function drawHeroes() {
-      const bolt = Math.max(0, 100 - time*12);
-      const saure = Math.max(0, 95 - time*5);
-      const aero = Math.max(0, time*2.5 - 25);
+    function updatePercs() {
+      const bolt = Math.max(0, 100 - time*13);
+      const saure = Math.max(0, 100 - time*5.5);
+      const aero = Math.max(0, Math.min(100, time*2.8 - 35));
       
-      const positions = [150, 380, 610];
+      document.getElementById('bolt-perc').textContent = Math.round(bolt) + '%';
+      document.getElementById('saure-perc').textContent = Math.round(saure) + '%';
+      document.getElementById('aero-perc').textContent = Math.round(aero) + '%';
+      
+      return {bolt, saure, aero};
+    }
+
+    function drawHeroes() {
+      const {bolt, saure, aero} = updatePercs();
+      const positions = [160, 420, 680];
       const colors = ['#ffe600', '#ff4757', '#1abc9c'];
-      const names = ['⚡ Blitz-Bolt', '🔥 Power-Sprinter', '🌬️ Dauer-Atem'];
       const percs = [bolt, saure, aero];
       
-      for(let i=0; i<3; i++) {
-        let height = percs[i] * 2.2;
+      for(let i = 0; i < 3; i++) {
+        let height = percs[i] * 2.1;
         ctx.fillStyle = colors[i];
-        ctx.fillRect(positions[i], 480 - height, 70, height);
+        ctx.fillRect(positions[i], 460 - height, 78, height);
         
-        ctx.font = 'bold 28px Fredoka';
-        ctx.fillStyle = '#333';
-        ctx.fillText(names[i], positions[i]+5, 530);
-        ctx.font = 'bold 22px Arial';
-        ctx.fillText(Math.round(percs[i]) + '%', positions[i]+18, 560);
+        ctx.font = 'bold 26px Fredoka';
+        ctx.fillStyle = '#222';
+        ctx.fillText(['⚡ Blitz-Bolt', '🔥 Power-Sprinter', '🌬️ Dauer-Atem'][i], positions[i] + 8, 515);
       }
     }
 
@@ -172,22 +236,23 @@
       drawRunner();
       drawHeroes();
       
-      let message = "Los geht’s!";
-      if(time > 5) message = "🚀 Blitz-Bolt gibt alles!";
-      if(time > 25) message = "🔥 Jetzt hilft Power-Sprinter mit!";
-      if(time > 70) message = "🌬️ Dauer-Atem übernimmt – du kannst stundenlang laufen! 🥳";
+      let msg = "Drücke einen Knopf und schau zu!";
+      if (time > 6) msg = "🚀 Blitz-Bolt gibt Vollgas!";
+      if (time > 28) msg = "🔥 Power-Sprinter springt ein – aber pass auf die brennenden Beine auf!";
+      if (time > 75) msg = "🌬️ Dauer-Atem übernimmt! Jetzt kannst du lange laufen ohne müde zu werden 🥳";
       
-      document.getElementById('info').textContent = message;
+      document.getElementById('info').textContent = msg;
     }
 
     function animate() {
-      if(!running) return;
-      time += 0.9;
+      if (!running) return;
+      time += 0.85;
       draw();
-      if(time < 180) requestAnimationFrame(animate);
-      else {
+      if (time < 200) {
+        requestAnimationFrame(animate);
+      } else {
         running = false;
-        document.getElementById('info').innerHTML = "🎉 Mega! Du bist ein echter Ausdauer-Held! 🏆";
+        document.getElementById('info').innerHTML = "🎉 Super gemacht! Du bist ein echter Ausdauer-Held!";
       }
     }
 
@@ -202,10 +267,10 @@
       running = false;
       time = 0;
       draw();
-      document.getElementById('info').textContent = "Wähle dein Abenteuer!";
+      document.getElementById('info').textContent = "Wähle dein Abenteuer und starte!";
     }
 
-    // Startbild
+    // Initial draw
     draw();
   </script>
 </body>
